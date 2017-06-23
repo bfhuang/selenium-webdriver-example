@@ -38,7 +38,9 @@ public class FireFoxWebDriverTest {
     @Test
     public void testName1() throws Exception {
         driver.get("https://www.baidu.com/");
-        driver.findElement(By.id("kw")).sendKeys("some key words");
+
+//        xpath  begin with // and then tag name, and then [], in the [], use @attribute=value
+        driver.findElement(By.xpath("//input[@id='kw']")).sendKeys("some key words");
         driver.findElement(By.id("su")).click();
 
         Thread.sleep(1000);
