@@ -4,15 +4,17 @@ package com;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ChromeWebDriverTest {
+public class prompTest {
     private WebDriver driver;
 
     @Before
@@ -25,14 +27,27 @@ public class ChromeWebDriverTest {
 
     @Test
     public void test() throws Exception {
-        driver.get("https://www.baidu.com/");
-        driver.findElement(By.id("kw")).sendKeys("some key words");
-        driver.findElement(By.id("su")).click();
+        driver.get("https://mail.rediff.com/cgi-bin/login.cgi");
+
+
+
+        //        xpath  begin with // and then tag name, and then [], in the [], use @attribute=value
+        driver.findElement(By.name("proceed")).click();
+
+
+        Alert alert = driver.switchTo().alert();
 
         Thread.sleep(1000);
 
-        String nums = driver.findElement(By.className("nums")).getText();
-        assertThat(nums.contains("百度为您找到相关结果约"), is(true));
+        assertThat(alert.getText(), is("Please enter a valid user name"));
+
+        alert.accept();
+        driver.switchTo().defaultContent();
+
+        WebElement demo = driver.findElement(By.id("demo"));
+
+        assertThat(driver.findElement(By.name("proceed")), is("Go"));
+
     }
 
 
